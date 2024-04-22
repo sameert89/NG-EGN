@@ -1,4 +1,9 @@
-import { IMqttMessage, IMqttServiceOptions, MqttModule, MqttService } from 'ngx-mqtt';
+import {
+  IMqttMessage,
+  IMqttServiceOptions,
+  MqttModule,
+  MqttService,
+} from 'ngx-mqtt';
 import { Subscription } from 'rxjs';
 
 import { Component, OnDestroy } from '@angular/core';
@@ -18,9 +23,11 @@ export class DisplayMqttMessageComponent implements OnDestroy {
       this.subscription = this.mqttService
         .observe('angularmqttdemo/topic1')
         .subscribe((message: IMqttMessage) => {
-          this.message = message.payload.toString();
+          this.message = 'Success';
+          // this.message = message.payload.toString();
         });
     } catch (e) {
+      this.message = 'failed';
       console.log(e);
     }
   }
