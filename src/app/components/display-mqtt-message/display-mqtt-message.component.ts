@@ -19,17 +19,13 @@ export class DisplayMqttMessageComponent implements OnDestroy {
   private subscription?: Subscription;
   public message: string = '';
   constructor(private readonly mqttService: MqttService) {
-    try {
-      this.subscription = this.mqttService
-        .observe('angularmqttdemo/topic1')
-        .subscribe((message: IMqttMessage) => {
-          this.message = 'Success';
-          // this.message = message.payload.toString();
-        });
-    } catch (e) {
-      this.message = 'failed';
-      console.log(e);
-    }
+    this.subscription = this.mqttService
+      .observe('angularmqttdemo/topic1')
+      .subscribe((message: IMqttMessage) => {
+        console.log('henlo');
+        this.message = 'Success';
+        // this.message = message.payload.toString();
+      });
   }
   ngOnDestroy() {
     this.subscription?.unsubscribe();
