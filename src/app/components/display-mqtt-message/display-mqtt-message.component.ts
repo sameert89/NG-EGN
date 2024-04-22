@@ -1,4 +1,3 @@
-import * as mqtt from 'mqtt/dist/mqtt';
 import { IMqttMessage, IMqttServiceOptions, MqttModule, MqttService } from 'ngx-mqtt';
 import { Subscription } from 'rxjs';
 
@@ -12,17 +11,21 @@ import { Component, OnDestroy } from '@angular/core';
   styleUrl: './display-mqtt-message.component.css',
 })
 export class DisplayMqttMessageComponent implements OnDestroy {
-  private subscription: Subscription;
+  private subscription?: Subscription;
   public message: string = '';
   constructor(private readonly mqttService: MqttService) {
-    this.subscription = this.mqttService
-      .observe('my/topic')
-      .subscribe((message: IMqttMessage) => {
-        this.message = message.payload.toString();
-      });
+    try {
+      this.subscription = this.mqttService
+        .observe('angularmqttdemo/topic1')
+        .subscribe((message: IMqttMessage) => {
+          this.message = message.payload.toString();
+        });
+    } catch (e) {
+      console.log(e);
+    }
   }
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.subscription?.unsubscribe();
   }
 }
 /*
