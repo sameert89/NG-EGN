@@ -11,6 +11,7 @@ export const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
   port: 443,
   path: '/mqtt',
   protocol: 'wss',
+  username: 'angularapp',
   properties: {
     authenticationMethod: 'OAUTH2-JWT',
     authenticationData: Buffer.from(
