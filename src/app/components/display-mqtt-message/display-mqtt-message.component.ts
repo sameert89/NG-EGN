@@ -46,7 +46,7 @@ export class DisplayMqttMessageComponent implements OnDestroy {
   }
   async connectMqtt() {
     try {
-      this.client = await mqtt.connectAsync(this.MQTT_SERVICE_OPTIONS);
+      this.client = await mqtt.connectAsync(this.PUBLIC_HOST);
       this.message = 'connected';
       console.log(this.client.connected);
     } catch (e) {
