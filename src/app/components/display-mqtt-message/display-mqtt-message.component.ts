@@ -16,7 +16,7 @@ import { Component, importProvidersFrom, OnDestroy } from '@angular/core';
   styleUrls: ['./display-mqtt-message.component.css'],
   providers: [],
 })
-export class DisplayMqttMessageComponent implements OnDestroy {
+export class DisplayMqttMessageComponent{
   private subscription?: Subscription;
   private connectionSubscription?: Subscription;
   public message: string = 'Not Connected';
@@ -29,9 +29,8 @@ export class DisplayMqttMessageComponent implements OnDestroy {
     protocolVersion: 5,
     properties: {
       authenticationMethod: 'OAUTH2-JWT',
-      authenticationData:
-        'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6InEtMjNmYWxldlpoaEQzaG05Q1Fia1A1TVF5VSIsImtpZCI6InEtMjNmYWxldlpoaEQzaG05Q1Fia1A1TVF5VSJ9.eyJhdWQiOiJodHRwczovL2V2ZW50Z3JpZC5henVyZS5uZXQiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC84OGRiODQyMC1jMWU5LTRjYzQtYjVlNC00ZjRlMzI0NTlhN2QvIiwiaWF0IjoxNzEzODcxMzY1LCJuYmYiOjE3MTM4NzEzNjUsImV4cCI6MTcxMzg3NTI2NSwiYWlvIjoiRTJOZ1lQQXZuVk5nMUJKd3pDbGhheFhQMlkvL0FRPT0iLCJhcHBpZCI6ImZmNzFiNDBlLWU3ODEtNGU5Yy1iNzE3LWEzYzUwYmVlZTRiNSIsImFwcGlkYWNyIjoiMSIsImlkcCI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0Lzg4ZGI4NDIwLWMxZTktNGNjNC1iNWU0LTRmNGUzMjQ1OWE3ZC8iLCJvaWQiOiI3YWVkMGY1Yi1lZWExLTRlOWItYTI1Ni1mYjM5YTcwOGVlZTAiLCJyaCI6IjAuQVNzQUlJVGJpT25CeEV5MTVFOU9Na1dhZlhnS1BJTGdYVVZFcF9YQzlDMTl5SnZDQUFBLiIsInN1YiI6IjdhZWQwZjViLWVlYTEtNGU5Yi1hMjU2LWZiMzlhNzA4ZWVlMCIsInRpZCI6Ijg4ZGI4NDIwLWMxZTktNGNjNC1iNWU0LTRmNGUzMjQ1OWE3ZCIsInV0aSI6ImVvazdlc29JckV5VTJwU1ROSGFKQUEiLCJ2ZXIiOiIxLjAifQ.RQY41LFE4bY0yot3nI_v6BIGAEdYhl7euCyHi9Po_F8xY20H60MQxF2HUUyVO1B1YDPUPOM_b56GM1dhzeOxdB1s7DW70clz0KCl0wy4rfxQtmENKLKZn57wrwZ3yYBxE0SfGCNLAl5ity3bPv9GAFokHAaAQcpzaJ6oTi-Z5cKcXXLU4MbCk7oj2KbcQrmUYe2Bq_hB7lUQ9laxYzpp8BfcHPcUoStPb-yihX57VxqygMBIvEf7uNSOkH7KQPjCfBhtTVCCS-TmV8BzDbBIyydLvptld1lKU48qMyIsZliD0VgLT2L-zYRLXM7fr1n94fw2eJ2340ys0oJamm8CWw',
-    },
+      authenticationData: Buffer.from('eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6InEtMjNmYWxldlpoaEQzaG05Q1Fia1A1TVF5VSIsImtpZCI6InEtMjNmYWxldlpoaEQzaG05Q1Fia1A1TVF5VSJ9.eyJhdWQiOiJodHRwczovL2V2ZW50Z3JpZC5henVyZS5uZXQiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC84OGRiODQyMC1jMWU5LTRjYzQtYjVlNC00ZjRlMzI0NTlhN2QvIiwiaWF0IjoxNzEzODkyMDUxLCJuYmYiOjE3MTM4OTIwNTEsImV4cCI6MTcxMzg5NTk1MSwiYWlvIjoiRTJOZ1lOaTN2NjkvZS9qTWxhS3pOOFowZkFnVEJBQT0iLCJhcHBpZCI6ImZmNzFiNDBlLWU3ODEtNGU5Yy1iNzE3LWEzYzUwYmVlZTRiNSIsImFwcGlkYWNyIjoiMSIsImlkcCI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0Lzg4ZGI4NDIwLWMxZTktNGNjNC1iNWU0LTRmNGUzMjQ1OWE3ZC8iLCJvaWQiOiI3YWVkMGY1Yi1lZWExLTRlOWItYTI1Ni1mYjM5YTcwOGVlZTAiLCJyaCI6IjAuQVNzQUlJVGJpT25CeEV5MTVFOU9Na1dhZlhnS1BJTGdYVVZFcF9YQzlDMTl5SnZDQUFBLiIsInN1YiI6IjdhZWQwZjViLWVlYTEtNGU5Yi1hMjU2LWZiMzlhNzA4ZWVlMCIsInRpZCI6Ijg4ZGI4NDIwLWMxZTktNGNjNC1iNWU0LTRmNGUzMjQ1OWE3ZCIsInV0aSI6Ik9OQmRjdjcxREVPamlrNGoxRHh0QUEiLCJ2ZXIiOiIxLjAifQ.3ekJorTvz2ErRmQW-NuAZNLDQtEqqp61eetH921tI1DUZtBpjPIr7lLiD7vaLbpX888PEp4RF4_0m_H2EEtRLkiBDHEVLO_ChVlB-2lxXqqZSJgvVL6lfDv1XpoVu_DSosI_0shflDoqtf3AMmPF13MkwuZU2P4n4CVL7wNzlkUzf4Fza5_IBVqcyG71rmybY5YUWRDAi2x3Xz-rG-MHHdM1nhYl9v60mu6UyUhGcpDLg05zjpu4Z5J_Vn4tnWtyNVnmzTUWbpOy4iDN0Z8aBIryK2z_eR75EHg_VYOVPmeTVNFNm-An0vFGKmDivfYTn3q8KuAAtoF-HoK2eluRMg')
+    }
   };
   public PUBLIC_HOST: any = {
     hostname: 'broker.hivemq.com',
@@ -40,28 +39,8 @@ export class DisplayMqttMessageComponent implements OnDestroy {
   };
   client?: MqttClient;
   constructor(private http: HttpClient) {
-    // http
-    //   .post(
-    //     'https://login.microsoftonline.com/88db8420-c1e9-4cc4-b5e4-4f4e32459a7d/oauth2/v2.0/token',
-    //     {
-    //       client_id: 'ff71b40e-e781-4e9c-b717-a3c50beee4b5',
-    //       client_secret: 'byI8Q~BOk8_UEQyuPGJHQqQG29G4vjcubtZGvc3V',
-    //       scope: 'https://eventgrid.azure.net/.default',
-    //       grant_type: 'client_credentials',
-    //     }
-    //   )
-    //   .subscribe({
-    //     next: (response: any) => {
-    //       console.log(response);
-    //       this.MQTT_SERVICE_OPTIONS.properties.authenticationData = Buffer.from(
-    //         response.access_token
-    //       );
-    //     },
-    //   });
-  }
-  ngOnDestroy() {
-    this.subscription?.unsubscribe();
-    this.connectionSubscription?.unsubscribe();
+    // certificate issue
+    this.http.get(`https://${this.MQTT_SERVICE_OPTIONS.hostname}/mqtt`);
   }
   async connectMqtt() {
     if (!this.MQTT_SERVICE_OPTIONS.properties.authenticationData) return;
