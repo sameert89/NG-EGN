@@ -1,6 +1,7 @@
 import { Buffer } from 'buffer';
 import { IMqttServiceOptions, MqttModule } from 'ngx-mqtt';
 
+import { HttpClientModule } from '@angular/common/http';
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
@@ -14,5 +15,5 @@ import { routes } from './app.routes';
 // };
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), importProvidersFrom()],
+  providers: [provideRouter(routes), importProvidersFrom(HttpClientModule)],
 };
