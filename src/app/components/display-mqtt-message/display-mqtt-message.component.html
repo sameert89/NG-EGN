@@ -1,4 +1,43 @@
-<h3>{{ message }}</h3>
+<div class="main-container">
+  <h1>NG-EGN</h1>
+  <mat-card>
+    <mat-form-field appearance="outline">
+      <mat-label>Enter your message</mat-label>
+      <input matInput [(ngModel)]="userMessage" />
+    </mat-form-field>
+    <p>
+      Connection Status: {{ client?.connected ? "Connected" : "Not Connected" }}
+    </p>
+    <div class="button-row">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="connectMqtt()"
+        [disabled]="client?.connected"
+      >
+        <mat-icon>flash_on</mat-icon>Connect
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="publishMsg()"
+        [disabled]="!client?.connected"
+      >
+        <mat-icon>send</mat-icon>Publish
+      </button>
+    </div>
+  </mat-card>
+
+  <mat-list *ngIf="receivedMessages.length">
+    <h3>Received Messages:</h3>
+    <mat-list-item *ngFor="let message of receivedMessages">
+      <div class="list-item">
+        <div mat-line>{{ message.topic }}</div>
+        <div mat-line>{{ message.content }}</div>
+        <div mat-line>{{ message.timestamp | date : "medium" }}</div>
+      </div>
+    </mat-list-item>
+  </mat-list>
+</div>
+
 <iframe [src]="this.workerURL" [width]="0" [height]="0"></iframe>
-<button (click)="connectMqtt()">Connect</button>
-<button (click)="publishMsg()">Say Hello World</button>
