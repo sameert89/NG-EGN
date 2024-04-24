@@ -47,7 +47,7 @@ the Namespace_
 
 ### Registering our Application
 
-- In order to get a JWT token from entra for authentication, we need to have an
+- In order to get a JWT token from entra for authentication, we [must](https://learn.microsoft.com/en-us/azure/azure-monitor/logs/api/register-app-for-token?tabs=portal) have an
   **App Registration** in azure, which will be used as identifier against which
   the JWT will be issued.
 - In the Azure Portal search for **App Registrations**.
