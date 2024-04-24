@@ -67,10 +67,10 @@ the Namespace_
   token to us.
 - Click on **Add a permission**, select Microsoft Graph.
 - Go to Delegated Permissions, and search for `User.Read`. Click the associated
-  checkbox and add the permission. ~~Then add `offline_access` in a similar way (This allows us to fetch
+  checkbox and add the permission. Again add permission but this time select Application Permissions and search for `User.ReadAll`. ~~Then add `offline_access` in a similar way (This allows us to fetch
   refresh tokens from the Graph API).~~
 - Click on Add permission and complete the process.
-- One the permission are added, select the permission and click on **Grant Admin
+- One the permissions are added, select the permissions one by one and click on **Grant Admin
   Consent For Default Directory**.
 - Before you exit this resource there are a couple of things you need to note
   down from the overview section of this app registration:-
