@@ -111,6 +111,23 @@ lost, so keep it safe_.
   appear.
 - Select it, then Review and Assign the Role.
 
+### Scaling for Userbase
+
+By default the MQTT broker has 1 user 1 hour limitation, however this is
+impractical for any production usecase, this can be scaled in the MQTT broker
+configurations.
+
+- Head over to the MQTT broker section (Settings => Configuration) of the Event Grid Namespace we have
+  created. There are several options, like session expiry time (default 1hr) and
+  per username users. Set the expiry time according to your ingress, The number
+  of users per username sets the number of concurrent connections allowed
+  through the broker. Generally keeping it one is fine, since in frontend of the
+  POC we are dynamically generating the username.
+- In the scale section, throughput units can be configured (compute units that
+  handle pub-sub execution). MQTT broker may cause throttling in case there are
+  too many users, but this won't happen until tens of thousands of simultaneos
+  sockets are established.
+
 ## Getting JWT from the Graph API
 
 Now its time to test things and try to get a bearer token from the API. For this
@@ -186,7 +203,7 @@ import mqtt from "mqtt";
     port: 443,
     path: '/mqtt',
     protocol: 'wss',
-    username: 'angularapp',
+    username: Math.Random,
     protocolVersion: 5,
     properties: {
       authenticationMethod: 'OAUTH2-JWT',
