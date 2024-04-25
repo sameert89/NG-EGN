@@ -1,6 +1,5 @@
 import { Buffer } from 'buffer';
-import mqtt, { IClientOptions } from 'mqtt';
-import { MqttClient } from 'mqtt/dist/mqtt';
+import mqtt, { IClientOptions, MqttClient } from 'mqtt';
 
 import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
