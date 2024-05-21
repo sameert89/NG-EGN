@@ -164,16 +164,18 @@ set **Authentication Reason Code** in the AUTH packet of MQTT v5. The refresh
 token needs to be send in the AUTH Packet for reauthentication. But getting the
 refresh token is [not
 possible](<https://github.com/MicrosoftDocs/entra-docs/blob/main/docs/identity-platform/v2-oauth2-client-creds-grant-flow.md#:~:text=As%20a%20side%20note%2C%20refresh%20tokens%20will%20never%20be%20granted%20with%20this%20flow%20as%20client_id%20and%20client_secret%20(which%20would%20be%20required%20to%20obtain%20a%20refresh%20token)%20can%20be%20used%20to%20obtain%20an%20access%20token%20instead.>)
-in our server-server usecase. But the token is only required at the start of the
+in our server-server usecase (read note below). But the token is only required at the start of the
 connection for authentication, so frontend can get it from the backend everytime
-it is loaded. Also from my investigation, these graph oath calls do not incur
-any charges against your azure billing account.
+it is loaded. Also from my investigation, these graph oauth calls do not incur
+any charges against your azure billing account if you are an azure subscription without premium p1 or p2 b2c subscription (In that case first 50000 tokens are free).
 
-There is
+~There is
 a way to use MSAL.js to directly use frontend to fetch the JWT, but this
 requires you to have a microsoft account and use it to access the app
 registration, and it requires you to store client
-credentials on the frontend which is never recommended.
+credentials on the frontend which is never recommended.~
+
+*Note: The reason we are using the server to server client credentials flow is because of the way MSAL works inherently. [This](https://learn.microsoft.com/en-us/entra/identity-platform/msal-authentication-flows) article summarizes the different flows that are possible to get an authentication token from MSAL. As we have already established the JWT based access (precisely Role Based Access Control) requires a "Role" to be set up. And it can be only done to Service Principles, Managed Identities and Apps. So we need to authorize ourselves on behalf of the entity which has the role and hence the client credentials flow. And the article clearly mentions that the communicating entity must be a Daemon process else it will be blocked by CORS policies.*
 
 ## Integrating MQTT client in your Angular app.
 
